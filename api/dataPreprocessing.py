@@ -2,11 +2,12 @@ import pandas as pd
 import numpy as np
  
  
-def PreprocessData(DATA):
+def clean_record(DATA):
     metadata = {}
 
     df = pd.read_json(DATA)
     
+    #stores missing values and duplicated values so it could be displayed in the frontend
     metadata['missing_values'] = df.duplicated().sum()
     metadata['duplicated_values'] = df.duplicated().sum()
     

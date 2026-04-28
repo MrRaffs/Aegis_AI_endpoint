@@ -1,3 +1,24 @@
+# HOW TO RUN
+
+- open new terminal
+- change directory
+
+```[bash]
+cd api
+```
+
+- activate your venv (I use conda)
+
+```[bash]
+conda activate your_venv_name
+```
+
+- activate uvicorn
+
+```[bash]
+uvicorn main:app --reload
+```
+
 # WORKFLOW?
 
 - Receive the new record json (only 1 new data input)
