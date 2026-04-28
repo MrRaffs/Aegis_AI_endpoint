@@ -15,7 +15,7 @@ app = FastAPI()
 class MaintenanceRecord(BaseModel):
     truck_id: str
     maintenance_date: date        # Pydantic parses "2024-01-21" string → date object automatically
-    service_information: str      # raw value e.g. "Emergency Tires"
+    service_description: str      # raw value e.g. "Emergency Tires"
     maintenance_type: str
     odometer_reading: float
     labor_hours: float
