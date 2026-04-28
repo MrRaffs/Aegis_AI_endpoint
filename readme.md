@@ -55,13 +55,23 @@ uvicorn main:app --reload
 # DATA FLOW
 
 NestJS sends JSON
+
 ↓
+
 FastAPI receives as Pydantic model
+
 ↓
+
 Step 1: Manual cleaning (date parsing, string splitting) ← your custom code
+
 ↓
+
 Step 2: preprocessor.transform() ← from .pkl
+
 ↓
+
 Step 3: model.predict() ← from .pkl
+
 ↓
+
 FastAPI returns JSON

@@ -48,6 +48,5 @@ def predict(record: MaintenanceRecord):
 
     return {
         "is_anomaly": pred == -1,
-        "anomaly_score": score,
-        "maintenance_type": mtype
+        "anomaly_score": score
     }
