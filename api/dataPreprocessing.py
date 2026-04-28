@@ -1,15 +1,23 @@
 import pandas as pd
-import numpy as np
- 
- 
-def clean_record(DATA):
+
+
+def clean_record(record):
     metadata = {}
 
-    df = pd.read_json(DATA)
+    if hasattr(record, "model_dump"):
+        # Pydantic v2 model
+        record = record.model_dump()
+    elif not isinstance(record, dict):
+        raise TypeError("record must be a dict or Pydantic model")
+
+    df = pd.DataFrame([record])
     
     #stores missing values and duplicated values so it could be displayed in the frontend
-    metadata['missing_values'] = df.duplicated().sum()
-    metadata['duplicated_values'] = df.duplicated().sum()
+    metadata['missing_values'] = int(df.isnull().sum().sum())
+    
+    # TODO: must acccess database, get all records with the same truck id, and check for duplicate
+    #or just remove this functionality if it is too complex to implement
+    metadata['duplicated_values'] = df.duplicated().sum() 
     
     df.drop_duplicates(inplace=True)
     
@@ -34,5 +42,5 @@ def clean_record(DATA):
     'total_cost', 'downtime_hours', 'days_since_last'
     ]
     
-    return df[[categorical_cols], df[numerical_cols]], metadata
+    return df[categorical_cols + numerical_cols], metadata
 

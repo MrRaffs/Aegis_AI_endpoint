@@ -40,7 +40,7 @@ def predict(record: MaintenanceRecord):
     if mtype not in models:
         return {"error": f"Unknown maintenance_type: {mtype}"}
 
-    input_df = clean_record(record)
+    input_df, metadata = clean_record(record)
     X = preprocessor.transform(input_df)
 
     score = float(models[mtype].decision_function(X)[0])
@@ -48,5 +48,6 @@ def predict(record: MaintenanceRecord):
 
     return {
         "is_anomaly": pred == -1,
-        "anomaly_score": score
+        "anomaly_score": score,
+        "metadata": metadata
     }
